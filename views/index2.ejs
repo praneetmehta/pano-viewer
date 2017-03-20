@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! - A-Frame</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+    <script src="/javascripts/main.js"></script>
+
+  </head>
+  <body>
+    <a-scene>
+     <a-entity camera wasd-controls no-click-look-controls="maxyaw:6.28;maxpitch:0" fov="80" position="0 1.8 0" near="0.2" cursor-color="#33CCFF"></a-entity>
+     <a-sky src="/images/mel.jpg" rotation="0 -130 0"></a-sky>
+    </a-scene>
+    <style>
+        .a-enter-vr-button{
+            visibility: hidden;
+        }
+    </style>
+  </body>
+</html>
