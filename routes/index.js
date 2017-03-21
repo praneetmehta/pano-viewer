@@ -48,12 +48,12 @@ router.get('/show', function(req, res){
         name:name,
         type:type
     });
-    setTimeout(function(){
-        fs.unlink('./public/user_images'+name, function(err, stats){
-            if(err) console.log(err);
-            else console.log(stats);
-        });
-    },5000)
+    // setTimeout(function(){
+    //     fs.unlink('./public/user_images/'+name, function(err, stats){
+    //         if(err) console.log(err);
+    //         else console.log(stats);
+    //     });
+    // },5000)
 })
 
 module.exports = router;

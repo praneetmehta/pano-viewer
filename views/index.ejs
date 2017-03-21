@@ -2,13 +2,138 @@
 <html>
 <head>
     <title>Upload</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:200,300" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/links.css">
+      <script src="/javascripts/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
 </head>
-<body>
-    <form action="upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="image" /><br />
-        <input type="radio" name="type" value="0" checked />Plane</br>
-        <input type="radio" name="type" value="1" checked />Photosphere</br>
-        <button type="submit">GO!</button>
+<body style="font-family: Roboto; font-weight: 200">
+    <form action="upload" method="post" enctype="multipart/form-data" id="pan_form" style="z-index: 999">
+        <input type="file" name="image" id="file" class="custom-file-input" onchange="javascript:updateList()"  /><br />
+		<div id="fileList"></div>
+        <div id="radio_wrapper">
+        	<input type="radio" id="r1" name="type" value="0" checked />
+	        <label for="r1"><span></span>Panorama</label>
+	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	        <input type="radio" id="r2" name="type" value="1" checked />
+	        <label for="r2"><span></span>Photosphere</label>
+        </div>
+        <div class="wrapper">
+		  <span class="square">
+			<a href="#" class="tenth before after" onclick="document.getElementById('pan_form').submit();">Apply Magic</a>
+		  </span>
+		</div>
+        
     </form>
+    <a-scene id="aframe-scene">
+     <a-entity id="control" scale="1 1 0.7" camera wasd-controls no-click-look-controls="maxyaw:0.05;maxpitch:0.05" position="0 0 0" near="0.2" cursor-color="#33CCFF"></a-entity>
+     <a-sky src="/user_images/mel.jpg" style="box-shadow: inset 0 0 100em #666;" rotation="0 -130 0" ></a-sky>
+    </a-scene>
+    <style>
+    	input[type="radio"] {
+    display:none;
+}
+form{
+	position: fixed;
+}
+canvas{
+	box-shadow: inset 0 0 10em #666;
+}
+#radio_wrapper{
+	position: fixed;
+	left: 41vw;
+	top: 49vh;
+
+}
+
+input[type="radio"] + label {
+    color:#fff;
+    font-family:Roboto, sans-serif;
+}
+
+input[type="radio"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    margin:-2px 10px 0 0;
+    vertical-align:middle;
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -38px top no-repeat;
+    cursor:pointer;
+}
+
+input[type="radio"]:checked + label span {
+    background:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/210284/check_radio_sheet.png) -57px top no-repeat;
+}
+input[type="file"]{
+	position: fixed;
+	top: 40vh;
+	left: 42vw;
+	padding: 10px;
+}
+.custom-file-input {
+  color: transparent;
+  outline: none;
+}
+.custom-file-input::-webkit-file-upload-button {
+  visibility: hidden;
+}
+.custom-file-input::before {
+  content: 'Select an Image';
+  color: black;
+  display: inline-block;
+  background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+  border: 1px solid #999;
+  border-radius: 3px;
+  padding: 5px 8px;
+  outline: none;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  cursor: pointer;
+  text-shadow: 1px 1px #fff;
+  font-weight: 700;
+  font-size: 10pt;
+    outline: none;
+
+}
+.custom-file-input:hover::before {
+  border-color: black;
+    outline: none;
+
+}
+.custom-file-input:active {
+  outline: none;
+}
+.custom-file-input:active::before {
+  background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9); 
+    outline: none;
+
+}
+#fileList{
+	position: fixed;
+	top: 38vh;
+	left: 54vw;
+	padding: 10px;
+}
+.a-enter-vr-button{
+    display:  none;
+}
+canvas{
+    filter: blur(2px);
+
+}
+</style>
+<script type="text/javascript">
+	updateList = function() {
+  var input = document.getElementById('file');
+  var output = document.getElementById('fileList');
+
+
+  for (var i = 0; i < input.files.length; ++i) {
+    output.innerHTML += '<h5 style="font-weight:200">' + input.files.item(i).name + '</h5>';
+  }
+
+}
+</script>
 </body>
 </html>
