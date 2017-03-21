@@ -58,7 +58,7 @@ a {
           border-bottom: solid 2px #111;
           outline: none;
         }
-
+        
         @media(max-width:800px){
             input[type="text"] {
           font-family: 'Raleway';
