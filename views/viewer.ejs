@@ -5,19 +5,258 @@
     <meta charset="utf-8">
     <title>Hello, World! - A-Frame</title>
     <meta name="description" content="Hello, World! - A-Frame">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <script src="/javascripts/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:200,300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
+    <link href="/stylesheets/ios.css" rel="stylesheet">
+
+
 
   </head>
   <body>
-      
-    <a-scene>
-     <a-entity camera wasd-controls no-click-look-controls="maxyaw:6.28;maxpitch:<%= type%>" fov="80" position="0 1.8 0" near="0.2" cursor-color="#33CCFF"></a-entity>
+  <div id="settings">
+  <ul class="input-list style-1 clearfix" style="text-align: center">
+      <input type="text" value="Project Name" id="project" spellcheck="false">
+  </ul>
+    <fieldset>
+    <legend>SETTINGS</legend>
+    <form action="">
+        <div id="switches">
+        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Day/Night</h4>
+        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="day_night()">
+        <label for="cmn-toggle-1"></label>
+    </div>
+    <div id="switches">
+        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Pan/Sphere</h4>
+        <input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="pan_sphere()">
+        <label for="cmn-toggle-2"></label>
+    </div>
+    <div id="switches">
+        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Mode</h4>
+        <input id="cmn-toggle-3" class="cmn-toggle cmn-toggle-round" type="checkbox">
+        <label for="cmn-toggle-3"></label>
+    </div>
+    <div id="switches">
+        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Mode</h4>
+        <input id="cmn-toggle-4" class="cmn-toggle cmn-toggle-round" type="checkbox">
+        <label for="cmn-toggle-4"></label>
+    </div>
+    <div id="switches">
+        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Mode</h4>
+        <input id="cmn-toggle-5" class="cmn-toggle cmn-toggle-round" type="checkbox">
+        <label for="cmn-toggle-5"></label>
+    </div>
+    </form>
+</fieldset>
+  </div>
+
+
+  <div class="page-bg">
+  </div>
+    <a-scene id="aframe-scene">
+     <a-entity id="control" scale="1 1 1" camera wasd-controls no-click-look-controls="maxyaw:6.28;maxpitch:<%= type%>" fov="80" position="0 0 0" near="0.2" cursor-color="#33CCFF"></a-entity>
      <a-sky src="/user_images/<%= name %>" rotation="0 -130 0"></a-sky>
     </a-scene>
     <style>
         .a-enter-vr-button{
             visibility: hidden;
         }
+        #option_holder{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .page-bg{
+            transition: all 0.6s;
+            background:white;
+            /*background: url('/user_images/<%= name %>');
+            -webkit-filter: blur(10px);
+            -moz-filter: blur(10px);
+            -o-filter: blur(10px);
+            -ms-filter: blur(10px);
+            filter: blur(10px) opacity(0.5) contrast(2);*/
+            position:fixed;
+            width:100%;
+            height:100%;
+            top:0;
+            left:0;
+            z-index:-1;
+        }
+        input[type="text"] {
+          font-family: 'Raleway';
+          text-align: center;
+          padding: 20px 10px 10px 10px;
+          border: none;
+          border-bottom: solid 2px #969696;
+          transition: border 0.3s;
+          background: none;
+          font-size: 3em;
+          letter-spacing: 3px;
+          font-weight: 300;
+          position: fixed;
+          top: 15vh;
+          left: 15vw;
+
+        }
+        #settings{
+            float: right;
+            position: fixed;
+            right: 40px;
+            bottom: 80px;
+        }
+        input[type="text"]:focus{
+          content: '';
+          border-bottom: solid 2px #111;
+          outline: none;
+        }
+
+        @media(max-width:800px){
+            input[type="text"] {
+          font-family: 'Raleway';
+          text-align: center;
+          padding: 20px 10px 10px 10px;
+          border: none;
+          border-bottom: solid 2px #969696;
+          transition: border 0.3s;
+          background: none;
+          font-size: 1.7em;
+          letter-spacing: 3px;
+          font-weight: 300;
+          position: fixed;
+          top: 15vh;
+          left: 15vmin;
+
+        }
+        }
     </style>
+    <script>
+    $(document).ready(function(){
+        can = document.getElementsByClassName('a-canvas');
+        $('.a-canvas').css({'transition':'all 0.4s'});
+    });
+
+    $('#project').focus(function(){
+        if(this.value == 'Project Name'){
+            this.value = '';
+        }
+    });
+
+    sky = document.getElementsByTagName('a-entity');
+    $('html').keydown(function(e){
+        if(e.which == 38){
+            var val = $('a-entity').attr('scale');
+            var val_z = val.z;
+            if(val_z<=10){
+                sky[0].setAttribute('scale',{x:1,y:1,z:val_z+.05});
+            }
+            console.log(val_z);
+
+        }else if(e.which == 40){
+            var val = $('a-entity').attr('scale');
+            var val_z = val.z;
+            if(val_z >= 0.5){
+                sky[0].setAttribute('scale',{x:1,y:1,z:val_z-.05});
+            }
+            console.log(val_z);
+        }else if(e.which == 17){
+            shift()
+            stop()
+        }else if(e.which == 68){
+            sky[0].setAttribute('scale',{x:1,y:1,z:1});
+
+        }
+    });
+
+    function day_night(){
+        if(document.getElementById('cmn-toggle-1').checked){
+            $('.page-bg').css({
+                background:'black'
+                
+            });
+            $('#settings').css({
+                color: 'white'
+
+            });
+            $('#project').css({
+                color: 'white'
+            });
+            $('#project').focus(function(){
+                $(this).css({
+                    borderBottom: 'solid 2px #fff'
+                });
+            });
+        }else{
+            $('.page-bg').css({
+                background:'white'
+            });
+            $('#settings').css({
+                color: 'black'
+
+            });
+            $('#project').css({
+                color: 'black'
+            });
+            $('#project').focus(function(){
+                $(this).css({
+                    borderBottom: 'solid 2px #111'
+                });
+            });
+    }
+}
+function pan_sphere(){
+        if(document.getElementById('cmn-toggle-2').checked){
+            sky[0].setAttribute('no-click-look-controls',{maxyaw:6.28, maxpitch:1})
+        }else{
+            sky[0].setAttribute('no-click-look-controls',{maxyaw:6.28, maxpitch:0})         
+    }
+}
+    function shift(){
+        can = document.getElementsByClassName('a-canvas');
+        left = $('.a-canvas').css("left");
+        width = $(window).innerWidth();
+        height = $(window).innerHeight();
+        height_reduced  =height*3/5;
+        width_reduced = width*3/5;
+        height_pad = height*2/5 - 40;
+        if(left == '40px'){
+            $('.a-canvas').css({
+                    left:0,
+                    top:0,
+                    width:width,
+                    height:height
+                });
+        }else{
+            $('.a-canvas').css({
+                    left:40,
+                    top:height_pad,
+                    width:width_reduced+'px',
+                    height:height_reduced,
+                    boxShadow:'0px 0px 10px 1px black'
+                });
+        }
+    }
+
+    var entity = document.querySelector('#control');
+//     entity.addEventListener('componentchanged', function (evt) {
+//     if (evt.detail.name === 'rotation') {
+//         console.log('Entity has moved from', evt.detail.intersection, 'to', evt.detail.newData, '!');
+//         var b = document.createElement("a-sphere");
+//             b.setAttribute("position", {
+//                 "x" : evt.detail.oldData.x,
+//                 "y" : evt.detail.oldData.y,
+//                 "z" : evt.detail.oldData.z
+//             });
+//             b.setAttribute("radius","1.25");
+//             b.setAttribute("color","#EF2DFE");
+//             var a = document.getElementById('aframe-scene');
+//             a.appendChild(b);
+//             var addedImage = b;
+
+//   }
+// });
+
+    </script>
   </body>
 </html>
