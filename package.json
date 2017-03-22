@@ -18,5 +18,8 @@
     "multer": "^1.3.0",
     "serve-favicon": "~2.3.2",
     "sharp": "^0.17.2"
+  },
+  "devDependencies": {
+    "aframe-mouse-cursor-component": "^0.4.1"
   }
 }

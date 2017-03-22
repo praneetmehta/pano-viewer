@@ -56,4 +56,12 @@ router.get('/show', function(req, res){
     // },5000)
 })
 
+router.post('/projectfolder',function(req, res){
+
+var dir = req.body.name;
+
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
+});
 module.exports = router;

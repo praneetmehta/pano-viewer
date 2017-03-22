@@ -31,22 +31,6 @@ a {
             z-index:-1;
         }
         
-        input[type="text"] {
-          font-family: 'Raleway';
-          text-align: center;
-          padding: 20px 10px 10px 10px;
-          border: none;
-          border-bottom: solid 2px #969696;
-          transition: border 0.3s;
-          background: none;
-          font-size: 3em;
-          letter-spacing: 3px;
-          font-weight: 300;
-          position: fixed;
-          top: 15vh;
-          left: 15vw;
-
-        }
         #settings{
             float: right;
             position: fixed;
@@ -58,22 +42,21 @@ a {
           border-bottom: solid 2px #111;
           outline: none;
         }
-        
-        @media(max-width:800px){
-            input[type="text"] {
-          font-family: 'Raleway';
-          text-align: center;
-          padding: 20px 10px 10px 10px;
-          border: none;
-          border-bottom: solid 2px #969696;
-          transition: border 0.3s;
-          background: none;
-          font-size: 1.7em;
-          letter-spacing: 3px;
-          font-weight: 300;
-          position: fixed;
-          top: 15vh;
-          left: 15vmin;
 
+        #marker_prop_holder{
+          opacity: 0;
+          transition: all 0.1s;
         }
+        #upload{
+          display: inline-block;
         }
+        #marker_img{
+          width:80px; 
+          height: 60px;
+          transition: all 0.8s;
+        }
+        #img{
+          position: fixed; top: 10px; right: 20px;padding: 5px; width: 80px;height: 60px; border: 2px solid black; background: white;z-index: 999;
+          transition: all 0.8s;
+        }
+  

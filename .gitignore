@@ -1,2 +1,3 @@
-/node_modules
-/public/user_images
+node_modules/
+public/user_images/
+public/project_images/
