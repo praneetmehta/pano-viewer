@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
     <title>Hello, World! - A-Frame</title>
     <meta name="description" content="Hello, World! - A-Frame">
@@ -12,17 +12,16 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
     <link href="/stylesheets/ios.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet">
+</head>
+<body>
 
-
-
-  </head>
-  <body>
-
-  <script>
-
+<script>
+//A-frame component for cursor enter and leave action listener
 AFRAME.registerComponent('cursor-listener', {
   init: function () {
+    //cursor enter
     this.el.addEventListener('mouseenter', function (evt) {
+        //display the hotspot holder
       $("#marker_prop_holder").css({
         'opacity':'1',
         'z-index': '999'
@@ -30,12 +29,16 @@ AFRAME.registerComponent('cursor-listener', {
       $('#upload').css({
         display:'inline-block'
       });
+      // info = string(imageName + ____ + text)
       var info = $(this).html().split('____');
       console.log(info);
+      //set hotspot image and text
       $('#marker_img').attr("src", '/project_images/'+info[0]);
       $('#marker_txt').html(info[1]);
     });
+    //cursor leave
     this.el.addEventListener('mouseleave', function (evt) {
+        //hide the hotspot holder
       $("#marker_prop_holder").css({
         'opacity':'0',
         'z-ndex': '999'
@@ -43,6 +46,7 @@ AFRAME.registerComponent('cursor-listener', {
       $('#upload').css({
         display:'inline-block'
       });
+      //remove hotspot image from the holder
       $('#marker_img').attr("src", ' ');
       $('#marker_txt').html(' ');
     });
@@ -50,91 +54,88 @@ AFRAME.registerComponent('cursor-listener', {
   }
 });
 </script>
-
+<!-- form to set hotspot image and text -->
 <form id="upload">
 <input type="text" id="marker_text" style="z-index: 999; "><input type="file" class="custom-file-input" name="marker_image" id="marker_image">
 </form>
 <button onclick="createmarker()" style="z-index: 999" id="create">Createmarker</button><button onclick="removemarker()" style="z-index: 999">Removemarker</button>
 
-  <div class="page-bg">
+<div class="page-bg">
+</div>
+<!-- holder for the hotspot image and the text -->
+<div id="marker_prop_holder" style="z-index: 999">
+  <div id="img" style="">
+      <img src="" id="marker_img">
+      <h5 style="font-family: Roboto; font-weight: 200; color: black; background: white; padding:6px" id="marker_txt"></h5>
   </div>
-  <div id="marker_prop_holder" style="z-index: 999">
-      <div id="img" style="">
-          <img src="" id="marker_img">
-          <h5 style="font-family: Roboto; font-weight: 200; color: black; background: white; padding:6px" id="marker_txt"></h5>
-      </div>
-  </div>
-    <a-scene id="aframe-scene">
-              <a-entity bmfont-text="text: HELLO!; color: #333" position="0 0 -5"></a-entity>
-
-<!--      <a-entity id="control" scale="1 1 1" camera wasd-controls fov="80" position="0 0 0" near="0.2" cursor-color="#33CCFF"></a-entity>
- -->     <a-sky id="sky" src="/user_images/<%= name %>" id="sky" rotation="0 -130 0"></a-sky>
-        <a-entity id="enti" camera="userHeight: 1.6" position="0 0 3.8" look-controls wsad-controls>
-              <a-entity cursor="fuse: true; fuseTimeout: 500"
-            position="0 0 -1"
-            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
-            material="color: black; shader: flat">
-              </a-entity>
+</div>
+<!-- the vr scene using mozilla aframe library(the panorama scene) -->
+<a-scene id="aframe-scene">
+    <a-entity bmfont-text="text: HELLO!; color: #333" position="0 0 -5"></a-entity>
+    <a-sky id="sky" src="/user_images/<%= name %>" id="sky" rotation="0 -130 0"></a-sky>
+    <a-entity id="enti" camera="userHeight: 1.6" position="0 0 3.8" look-controls wsad-controls>
+        <a-entity cursor="fuse: true; fuseTimeout: 500"
+                position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: black; shader: flat">
         </a-entity>
-        <a-entity text="text: Hello, World!" material="color: #66E1B4" position="0 2 0"></a-entity>
-<!--      <a-sphere radius="1.25" color="#ff54f5" position="100 1 1"></a-sphere>
- --></a-scene>
+    </a-entity>
+</a-scene>
 
-    <script type="text/javascript">
-    // document.querySelector('#aframe-scene').addEventListener('dblclick', function () {
-    //     createmarker()
-    // });
-
-        function createmarker(){
-            var b = document.createElement("a-sphere");
-            b.setAttribute("position", {
-                "x" : 0,
-                "y" : 1.25,
-                "z" : -1
-            });
-            b.setAttribute("radius","0.25");
-            b.setAttribute("click-drag", '');
-            b.setAttribute("cursor-listener", true);
-            b.setAttribute("color","#fff");
-            if(document.getElementById('marker_image').files.item(0)){
-                b.innerHTML = document.getElementById('marker_image').files.item(0).name +'____' +$('#marker_text').val();
-                console.log(document.getElementById('marker_image').files.item(0).name);
-            }else{
-                b.innerHTML = '____' +$('#marker_text').val();
-            }
-            
-            var a = document.getElementById('aframe-scene');
-            a.appendChild(b);
-            $('#upload')[0].reset();
-        }
-        function removemarker(){
-            console.log($('#enti').attr('position'));
-            if($('#aframe-scene').children().last().prop("tagName") == "A-SPHERE"){
-                $('#aframe-scene').children().last().remove();
-            };
-        }
-        $('#img').mouseover(function(){
-            $('#img').css({
-                width: '160px',
-                height: '120px'
-            });
-            $('#marker_img').css({
-                width: '160px',
-                height: '120px'
-            })
+<script type="text/javascript">
+    // create the hotspot with the attributes
+    function createmarker(){
+        var b = document.createElement("a-sphere");
+        b.setAttribute("position", {
+            "x" : 0,
+            "y" : 1.25,
+            "z" : -1
         });
-        $('#img').mouseout(function(){
-            $('#img').css({
-                width: '80px',
-                height: '60px'
-            });
-            $('#marker_img').css({
-                width: '80px',
-                height: '60px'
-            })
-        })
+        b.setAttribute("radius","0.25");
+        b.setAttribute("click-drag", '');
+        b.setAttribute("cursor-listener", true);
+        b.setAttribute("color","#fff");
+        //set inner html as image address and text to be later used for displaying on hover
+        if(document.getElementById('marker_image').files.item(0)){
+            b.innerHTML = document.getElementById('marker_image').files.item(0).name +'____' +$('#marker_text').val();
+            console.log(document.getElementById('marker_image').files.item(0).name);
+        }else{
+            b.innerHTML = '____' +$('#marker_text').val();
+        }
         
-    </script>
-    <script src="/javascripts/viewer.js"></script>
-  </body>
+        var a = document.getElementById('aframe-scene');
+        a.appendChild(b);
+        $('#upload')[0].reset();
+    }
+    //remove the last created hotspot
+    function removemarker(){
+        console.log($('#enti').attr('position'));
+        if($('#aframe-scene').children().last().prop("tagName") == "A-SPHERE"){
+            $('#aframe-scene').children().last().remove();
+        };
+    }
+    $('#img').mouseover(function(){
+        $('#img').css({
+            width: '160px',
+            height: '120px'
+        });
+        $('#marker_img').css({
+            width: '160px',
+            height: '120px'
+        })
+    });
+    $('#img').mouseout(function(){
+        $('#img').css({
+            width: '80px',
+            height: '60px'
+        });
+        $('#marker_img').css({
+            width: '80px',
+            height: '60px'
+        })
+    })
+    
+</script>
+<script src="/javascripts/viewer.js"></script>
+</body>
 </html>

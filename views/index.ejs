@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Upload</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/links.css">
@@ -8,49 +8,40 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/stylesheets/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-</head>
-<body style="font-family: Roboto; font-weight: 200">
-  <i id="info" class="fa fa-info-circle fa-2x tooltip" style="position: fixed;z-index:999;top: 20px;right: 20px; color: white"><span class="tooltiptext">After you <br><strong>Apply Magic</strong><br>Press Esc to go to settings<br>Press <i class="fa fa-arrow-up"></i> to zoomIn<br><i class="fa fa-arrow-down"></i>to zoomOut and<br> press 'D' to reset zoom</span></i>
-
+  </head>
+  <body style="font-family: Roboto; font-weight: 200">
+    <i id="info" class="fa fa-info-circle fa-2x tooltip" style="position: fixed;z-index:999;top: 20px;right: 20px; color: white"><span class="tooltiptext">After you <br><strong>Apply Magic</strong><br>Press Esc to go to settings<br>Press <i class="fa fa-arrow-up"></i> to zoomIn<br><i class="fa fa-arrow-down"></i>to zoomOut and<br> press 'D' to reset zoom</span></i>
     <form action="upload" method="post" enctype="multipart/form-data" id="pan_form" style="z-index: 999">
-        <input type="file" name="image" id="file" class="custom-file-input" onchange="javascript:updateList()"  /><br />
-		<div id="fileList"></div>
-        <div id="radio_wrapper">
-        	<input type="radio" id="r1" name="type" value="0" checked />
-	        <label for="r1"><span></span>Panorama</label>
-	        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	        <input type="radio" id="r2" name="type" value="1" checked />
-	        <label for="r2"><span></span>Photosphere</label>
-        </div>
-        <div class="wrapper">
-		  <span class="square">
-			<a href="#" class="tenth before after" onclick="document.getElementById('pan_form').submit();">Apply Magic</a>
-		  </span>
-		</div>
-        
+      <input type="file" name="image" id="file" class="custom-file-input" onchange="javascript:updateList()"  /><br />
+      <div id="fileList"></div>
+      <div id="radio_wrapper">
+        <input type="radio" id="r1" name="type" value="0" checked />
+        <label for="r1"><span></span>Panorama</label>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="radio" id="r2" name="type" value="1" checked />
+        <label for="r2"><span></span>Photosphere</label>
+      </div>
+      <div class="wrapper">
+        <span class="square">
+          <a href="#" class="tenth before after" onclick="document.getElementById('pan_form').submit();">Apply Magic</a>
+        </span>
+      </div>
+      
     </form>
     <a-scene id="aframe-scene">
-     <a-entity id="control" scale="1 1 0.7" camera wasd-controls no-click-look-controls="maxyaw:0.05;maxpitch:0.05" position="0 0 0" near="0.2" cursor-color="#33CCFF"></a-entity>
-     <a-sky src="/user_images/mel.jpg" style="box-shadow: inset 0 0 100em #666;" rotation="0 -130 0" ></a-sky>
-    </a-scene>
-    <style>
-
+    <a-entity id="control" scale="1 1 0.7" camera wasd-controls no-click-look-controls="maxyaw:0.05;maxpitch:0.05" position="0 0 0" near="0.2" cursor-color="#33CCFF"></a-entity>
+  <a-sky src="/user_images/mel.jpg" style="box-shadow: inset 0 0 100em #666;" rotation="0 -130 0" ></a-sky>
+</a-scene>
+<style>
 </style>
 <script type="text/javascript">
-	updateList = function() {
-  var input = document.getElementById('file');
-  var output = document.getElementById('fileList');
-
-
-  for (var i = 0; i < input.files.length; ++i) {
-    output.innerHTML += '<h5 style="font-weight:200">' + input.files.item(i).name + '</h5>';
+  updateList = function() {
+    var input = document.getElementById('file');
+    var output = document.getElementById('fileList');
+    for (var i = 0; i < input.files.length; ++i) {
+      output.innerHTML += '<h5 style="font-weight:200">' + input.files.item(i).name + '</h5>';
+    }
   }
-
-}
-$("#info").hover(function(){
-
-})
 </script>
 </body>
 </html>
