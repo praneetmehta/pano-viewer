@@ -11,6 +11,7 @@
   </head>
   <body style="font-family: Roboto; font-weight: 200">
     <i id="info" class="fa fa-info-circle fa-2x tooltip" style="position: fixed;z-index:999;top: 20px;right: 20px; color: white"><span class="tooltiptext">After you <br><strong>Apply Magic</strong><br>Press Esc to go to settings<br>Press <i class="fa fa-arrow-up"></i> to zoomIn<br><i class="fa fa-arrow-down"></i>to zoomOut and<br> press 'D' to reset zoom</span></i>
+
     <form action="upload" method="post" enctype="multipart/form-data" id="pan_form" style="z-index: 999">
       <input type="file" name="image" id="file" class="custom-file-input" onchange="javascript:updateList()"  /><br />
       <div id="fileList"></div>
@@ -39,7 +40,7 @@
     var input = document.getElementById('file');
     var output = document.getElementById('fileList');
     for (var i = 0; i < input.files.length; ++i) {
-      output.innerHTML += '<h5 style="font-weight:200">' + input.files.item(i).name + '</h5>';
+      output.innerHTML += '<h5 style="font-weight:200; color: white">' + input.files.item(i).name + '</h5>';
     }
   }
 </script>
