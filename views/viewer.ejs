@@ -1,54 +1,48 @@
 
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
-    <title>Hello, World! - A-Frame</title>
+    <title>Pano Viewer</title>
     <meta name="description" content="Hello, World! - A-Frame">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
-    <script src="/javascripts/main.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/aframe/0.5.0/aframe.min.js"></script> 
+
+  <script src="https://unpkg.com/aframe-click-drag-component"></script> 
+  <script src="https://rawgit.com/mayognaise/aframe-mouse-cursor-component/master/dist/aframe-mouse-cursor-component.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:200,300" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400" rel="stylesheet">
-    <link href="/stylesheets/ios.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet">
+    <script src="/javascripts/components.js"></script>
+    <script src="/javascripts/sphere_creater.js"></script>
+</head>
+<body>
 
+<!-- form to set hotspot image and text -->
+<form id="upload">
+  <input type="text" id="marker_text" style="z-index: 999; ">
+  <input type="file" class="custom-file-input" name="marker_image" id="marker_image" placeholder="marker text">
+</form>
+<button onclick="createmarker()" style="z-index: 999" id="create">Createmarker</button><button onclick="removemarker()" style="z-index: 999">Removemarker</button>
 
-
-  </head>
-  <body>
-  <div id="settings">
-  <i class="fa fa-arrow-circle-o-left fa-2x" style="position: fixed;top: 20px;left: 20px;" onclick="window.history.back()"></i>
-  <ul class="input-list style-1 clearfix" style="text-align: center">
-      <input type="text" value="Project Name" id="project" spellcheck="false">
-  </ul>
-    <fieldset>
-    <legend>SETTINGS</legend>
-    <form action="">
-        <div id="switches">
-        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Day/Night</h4>
-        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="day_night()">
-        <label for="cmn-toggle-1"></label>
-    </div>
-    <div id="switches">
-        <h4 style="font-family: Roboto;display: inline-block;margin-top: 0;margin-bottom: 20px;">Pan/Sphere</h4>
-        <input id="cmn-toggle-2" class="cmn-toggle cmn-toggle-round" type="checkbox" onclick="pan_sphere()">
-        <label for="cmn-toggle-2"></label>
-    </div>
-  
-    </form>
-</fieldset>
+<div class="page-bg">
+</div>
+<!-- holder for the hotspot image and the text -->
+<div id="marker_prop_holder" style="z-index: 999">
+  <div id="img" style="">
+      <img src="" id="marker_img">
+      <h5 style="font-family: Roboto; font-weight: 200; color: black; background: white; padding:10px; border-radius: 5%" id="marker_txt"></h5>
   </div>
+</div>
+<!-- the vr scene using mozilla aframe library(the panorama scene) -->
+<a-scene id="aframe-scene">
+    <a-sky id="sky" src="/user_images/<%= name %>" id="sky" rotation="0 -130 0"></a-sky>
+    <a-entity id="enti" camera="userHeight: 5" position="0 0 1.6" look-controls wsad-controls mouse-cursor>
+        <a-cursor style="z-index: 9999">
+        </a-cursor>
+    </a-entity>
+</a-scene>
 
-
-  <div class="page-bg">
-  </div>
-    <a-scene id="aframe-scene">
-     <a-entity id="control" scale="1 1 1" camera wasd-controls no-click-look-controls="maxyaw:6.28;maxpitch:<%= type%>" fov="80" position="0 0 0" near="0.2" cursor-color="#33CCFF"></a-entity>
-     <a-sky src="/user_images/<%= name %>" id="sky" rotation="0 -130 0"></a-sky>
-<!--      <a-sphere radius="1.25" color="#ff54f5" position="100 1 1"></a-sphere>
- --></a-scene>
-
-    <script src="/javascripts/viewer.js"></script>
-  </body>
+</body>
 </html>

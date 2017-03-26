@@ -16,7 +16,7 @@ a,a:visited,a:hover,a:active{
 	font-size:2.5em;
 }
 a:hover{
-	color:#d73444;
+	color:#fff;
 }
 a.before:before,a.after:after{
   content: "";
@@ -35,7 +35,7 @@ a.before:before,a.after:after{
   height:5px;
   height:0.35rem;
   width:0;
-  background:#d73444;
+  background:#fff;
 }
 
 a.before:hover:before,a.after:hover:after{
@@ -63,7 +63,7 @@ a.before:hover:before,a.after:hover:after{
   width:5px;
   width:0.35rem;
   height:0;
-  background:#d73444;
+  background:#fff;
 }
 .square:before{
   left:0;

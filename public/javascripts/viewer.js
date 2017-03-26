@@ -71,13 +71,13 @@
             });
     }
 }
-function pan_sphere(){
-        if(document.getElementById('cmn-toggle-2').checked){
-            sky[0].setAttribute('no-click-look-controls',{maxyaw:6.28, maxpitch:1})
-        }else{
-            sky[0].setAttribute('no-click-look-controls',{maxyaw:6.28, maxpitch:0})         
-    }
-}
+// function pan_sphere(){
+//         if(document.getElementById('cmn-toggle-2').checked){
+//             sky[0].setAttribute('no-click-look-controls',{maxyaw:6.28, maxpitch:1})
+//         }else{
+//             sky[0].setAttribute('no-click-look-controls',{maxyaw:6.28, maxpitch:0})         
+//     }
+// }
     function shift(){
         can = document.getElementsByClassName('a-canvas');
         left = $('.a-canvas').css("left");
